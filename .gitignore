@@ -6,6 +6,13 @@ __pycache__/
 # C extensions
 *.so
 
+vpn_auth.decrypted
+vpn_auth.key
+vpn_auth.txt
+config.json
+.idea/
+connection/vpn_auth.encrypted
+
 # Distribution / packaging
 .Python
 build/
