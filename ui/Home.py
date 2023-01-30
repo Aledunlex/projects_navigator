@@ -6,10 +6,11 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget
 
 from connection.VpnAuth import connect_vpn
+from ui.BaseWindow import BaseWindow
 from ui.ProjectWindow import ProjectWindow
 
 
-class MainWindow(QMainWindow):
+class MainWindow(BaseWindow):
     def __init__(self):
         super().__init__()
         # self.check_vpn_enabled()
@@ -18,13 +19,9 @@ class MainWindow(QMainWindow):
         self.__init_ui()
 
     def __init_ui(self):
+        self.setWindowTitle("Git Project Interface")
+
         projects = self.get_projects_from_gitlab()
-
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-
-        layout = QVBoxLayout()
-        central_widget.setLayout(layout)
 
         self.project_buttons = []
         for project in projects:
@@ -33,21 +30,15 @@ class MainWindow(QMainWindow):
             button.clicked.connect(lambda checked, p=project: self.open_project_window(p))
             self.project_buttons.append(button)
 
-        layout = QVBoxLayout()
         for button in self.project_buttons:
-            layout.addWidget(button)
+            self.layout.addWidget(button)
 
-        central_widget = QWidget()
-        central_widget.setLayout(layout)
-        self.setCentralWidget(central_widget)
-
-        self.setWindowTitle("Git Project Interface")
         self.show()
 
     @pyqtSlot()
     def open_project_window(self, project):
         print(f"Opening {project} window")
-        self.current_window = ProjectWindow(project)
+        self.current_window = ProjectWindow(project, self)
         self.close()
 
     def check_vpn_enabled(self):
