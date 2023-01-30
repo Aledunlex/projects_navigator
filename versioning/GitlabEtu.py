@@ -1,10 +1,12 @@
-from versioning.Gitlab import Gitlab
+from versioning.VersionControlSystem import VersionControlSystem
 
 
-class GitlabEtu(Gitlab):
-    def __init__(self, username, private_key, url):
-        super(GitlabEtu, self).__init__(username, private_key, url)
+class GitlabEtu(VersionControlSystem):
+    def __init__(self):
+        username = ""
+        url = ""
+        token_path = ""
+        super(GitlabEtu, self).__init__(username, token_path, url)
 
     def get_projects(self):
-        # Implement logic to retrieve projects from GitlabEtu
-        return ["project4", "project5", "project6"]
+        return []
